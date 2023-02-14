@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
+      }
+      .input-area {
+        background-color: #F2F2F2;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        margin-bottom: 20px;
+        width: 80%;
+      }
+      .input-field {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+      .submit-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      .submit-button:hover {
+        background-color: #3E8E41;
+      }
+      .output-area {
+        background-color: #F2F2F2;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        width: 80%;
+        text-align: center;
+      }
+      @media only screen and (max-width: 600px) {
+        .container {
+          margin-top: 20px;
+        }
+        .input-area, .output-area {
+          width: 95%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="input-area">
+        <form action="">
+          <input type="text" class="input-field" placeholder="Enter your audio link">
+          <button class="submit-button">Start assesment Bot</button>
+        </form>
+      </div>
+      <div class="output-area">
+        <p>Kindly insert the assesment audio url here.</p>
+      </div>
+    </div>
+  </body>
+</html>

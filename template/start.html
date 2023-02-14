@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RELEN</title>
+    <style>
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .sound-btn {
+        background-color: blue;
+        border-radius: 50%;
+        color: white;
+        padding: 1em;
+        border: none;
+        animation: sound 1s ease-in-out infinite;
+        animation-delay: 0.5s;
+        max-width: 80%;
+      }
+
+      @media (max-width: 768px) {
+        .sound-btn {
+          padding: 0.5em;
+        }
+      }
+
+      @keyframes sound {
+        0% {
+          transform: scale(1);
+        }
+        20% {
+          transform: scale(1.2);
+        }
+        40% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes vibrate {
+        0% {
+          transform: translate(0);
+        }
+        20% {
+          transform: translate(2px, 2px);
+        }
+        40% {
+          transform: translate(-2px, -2px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+   
+    <div class="container">
+    <form action="{{ url_for('play_intro') }}" method="post">
+      <button  id="submit-button"  class="sound-btn">Start</button>
+    </form>
+    </div>
+  
+  </body>
+</html>
