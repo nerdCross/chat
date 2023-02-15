@@ -1,8 +1,7 @@
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.feature_extraction.text import CountVectorizer
 
-from main import text_to_speech
-
-import time
-
+# you can request the data from the api or use the data staticcally here for testing purposes.
 
 data = [
   {
@@ -108,53 +107,44 @@ data = [
 
 
 
-#========function to loop through the dataset and print out only the questions.==========
-#for item in data:
- #  for item in data:
-  #  if len(item['question']) > 0:
-   #     #print("Question: ", item['question'])
-    #    print(item['question'])
-    #else:
-    #    pass
-#======================================================================================
-
-#========function to loop through the dataset and compare the questions with the answers.==========
-
-#========function to loop through the dataset and compare the questions with the answers.==========
-
-#==============================================================================================
+answers = []
 
 
-def speakQuestions():
+def convert_json_answers_to_list():
   #yeah it speaks after 20 seconds
   for item in data:
    for item in data:
     if len(item['answer']) > 0:
-        #print("Question: ", item['question'])
-        #speak the question
-
-        #print(item['question'])
-        text = item['question']
-        gender = 'Male'
-        print(item['question'])
-        #insert the inner html here.
-        text_to_speech(text, gender)
-        #speak the question
-        
-        time.sleep(20)
-        
+        answers.append(item['answer'])
+        print("answer: ", item['question'])
     else:
         pass
     
-#speakQuestions()
-def introduction():
-  text = "Welcome to Relen, kindly listen to the audio lecture below, to start the assesement, type Start into the text box below, each question will take 20 seconds before the next, goodluck!."
-  gender = 'Male'
-  #incert the inner html here.
-  text_to_speech(text, gender)
-
-#introduction()
+convert_json_answers_to_list()
 
 
-def check_the_ans():
-  pass
+
+reference_answers = "This is the first sentence."
+
+vectorizer = CountVectorizer().fit_transform(answers + [reference_answers])
+cosine_similarities = cosine_similarity(vectorizer[-1], vectorizer[:-1]).flatten()
+
+
+# the follwing code uses the feature extracted above to evaluate the use score and return the score.
+def score_the_user():
+  score = 0
+  for i, similarity in enumerate(cosine_similarities):
+      if similarity > 0.5:
+        score + 1
+        print(f"Sentence {i + 1} matches the reference sentence with a similarity of {similarity:.2f}.")
+      else:
+        print(f"Sentence {i + 1} does not match the reference sentence with a similarity of {similarity:.2f}.")
+        score + 0
+  return score  
+
+
+
+#In this example, the CountVectorizer class from the scikit-learn library is used to convert the answers into a numerical representation.
+#  The cosine_similarity function from the same library is used to calculate the cosine similarity between the reference sentence and each of the other answers. 
+# The cosine similarity ranges from 0, indicating no similarity, to 1, indicating a perfect match. In this example, a similarity threshold of 0.5 is used to determine
+#  whether a sentence matches the reference sentence with some degree of accuracy. You can adjust this threshold to suit your needs.
