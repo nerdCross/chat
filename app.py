@@ -3,7 +3,8 @@ from flask_cors import cross_origin
 from flask import Flask, redirect, render_template, request,url_for
 from main import text_to_speech
 #from   mic_source_speech_to_text import runnertime
-#from speak_all_question_out import introduction
+from speak_all_question_out import introduction, speakQuestions
+
 
 #app = Flask(__name__,template_folder ="template")
 app = Flask(__name__, template_folder='template', static_folder='static')
@@ -42,8 +43,12 @@ def assesment():
     # ...
     #introduction()
 
-    return render_template('assesment.html')
-
+   # return render_template('assesment.html')
+    #introduction()
+    
+    #speakQuestions()
+    return render_template('dashboard.html')
+    
 
 
 
