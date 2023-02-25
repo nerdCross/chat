@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Student Evaluation App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body >
+    <div class="container">
+      <br>
+     
+      <div class="chat-container">
+        <div class="chat-window">
+     
+          <!-- <div class="chat-bubble left">
+            
+            <p>Welcome to Relen, kindly listen to the audio lecture below, before you click on the Start the Assesment button, each question will take 20 seconds, goodluck!</p>
+          </div> -->
+          <div class="chat-bubble right">
+            
+              <p>Welcome to Relen, kindly listen to the audio lecture below, before you click on the Start the Assesment button, each question will take 20 seconds, goodluck!</p>
+            
+          </div>
+         
+        </div>
+        <div class="chat-input">
+                
+                  <div class="audio-input">
+                    <form action="" method="post"></form>
+                    <button class="audio-button"> 🎤 </button> 
+                    
+                
+                  </div>
+        </div>
+      </div>
+      <div class="score-container">
+        
+        <!-- <p>Time: <span id="counter" class="timer"></span></p> -->
+        <!-- <script>
+          var startingValue = 0;
+          var counter = document.getElementById('counter');
+          var count = startingValue;
+          counter.innerHTML = count;
+          var timer = setTimeout(function() {
+            count = startingValue;
+            counter.innerHTML = count;
+            clearInterval(interval);
+          }, 2000);
+          var interval = setInterval(function() {
+            count--;
+            counter.innerHTML = count;
+          }, 1000);
+        </script> -->
+      
+        <div style="align-self: center;">
+            <audio controls>
+              <source src="{{ url_for('static', filename='sample3.wav') }}" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+           </div>
+          
+      
+        <div class="d2">
+          <!-- <p>Score: <span class="score">0</span></p> -->
+        </div>
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+        
+      </div><br>
+        <form action="{{ url_for('interview') }}" method="post">
+          <button onclick="" id="submit-button"  class="sound-btn">Start Interview</button>
+        </form>
+   
+      
+    </div>
+   <!-- <script>
+
+      function count_down() {
+        console.log("Button clicked!");
+        let timeLeft = 50;
+
+      // Get the timer span element
+      const timerSpan = document.querySelector('.timer');
+
+      // Update the timer span every second
+      const timerInterval = setInterval(() => {
+        // Decrement the time left by one second
+        timeLeft--;
+
+        // Update the timer span with the new time left
+        timerSpan.textContent = timeLeft;
+
+        // Stop the timer when time runs out
+        if (timeLeft === 0) {
+          clearInterval(timerInterval);
+        }
+      }, 1000);
+      }
+
+      setTimeout(count_down, 2000);
+</script> -->
+
+
+    <script>
+      window.onload = function() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/speak', true);
+        xhr.send();
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Assessment</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style src="{{ url_for('static', filename='dash.css') }}"> </style>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+
+
+</head>
+
+<body>
+    <div class="mic-container">
+        <button id="start-button" class="btn btn-primary">Start Assessment</button>
+        <div class="mic">
+          <div class="mic-top"></div>
+          <div class="mic-bottom"></div>
+          <div class="mic-center"></div>
+        </div>
+      </div>
+      
+      <div class="score-container">
+        <p id="score"></p>
+      </div>
+      
+</body>

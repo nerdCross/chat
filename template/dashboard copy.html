@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Student Evaluation App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <div class="container">
+      <br>
+     
+      <div class="chat-container">
+        <div class="chat-window">
+     
+          <div class="chat-bubble left">
+            
+            <p>Welcome to Relen, kindly listen to the audio lecture below, before you click on the Start the Assesment button, each question will take 20 seconds, goodluck!</p>
+          </div>
+          <div class="chat-bubble right">
+            <p>Sure, what would you like to know?</p>
+          </div>
+         
+        </div>
+        <div class="chat-input">
+                
+                  <div class="audio-input">
+                    <form action="" method="post"></form>
+                    <button class="audio-button"> 🎤 </button> 
+                    
+                
+                  </div>
+        </div>
+      </div>
+      <div class="score-container">
+        
+        <p>Time: <span class="timer">0</span>s</p>
+        <div style="align-self: center;">
+            <audio controls>
+              <source src="{{ url_for('static', filename='sample2.wav') }}" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+           </div>
+           
+      
+        <div class="d2">
+          <p>Score: <span class="score">0</span></p>
+        </div>
+        
+      </div>
+      <!-- <form action="{{ url_for('start') }}" method="post"> -->
+        <form action="{{ url_for('startinterview') }}" method="post">
+          <button  id="submit-button"  class="sound-btn">Start Assesment</button>
+        </form>
+        <!-- <form action="{{ url_for('start') }}" method="post"> -->
+
+        <!-- <button   class="button5"  onclick="window.location.href='/startinterview'"> Start Assesment </button>  -->
+      <!-- </form> -->
+      
+    </div>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+      const Start_assesment = document.querySelector(".button5");
+      const bot_chat_side = document.querySelector(".chat-bubble left");
+      const human_chat_side = document.querySelector(".chat-bubble right");
+
+      const voicebtn = document.querySelector(".btn");
+      //const textInput = document.querySelector("input[type='text']");
+      //container.innerHTML+=`<p class="recorder">${transcript}</p>`;
+     
+      voiceBtn.addEventListener("click", () => {
+        chatBox.innerHTML += "<p>Listening...</p>";
+        // Code for voice recognition
+      });
+
+      voicebtn.addEventListener("click", () => {
+        chatBox.innerHTML+=`<p class="speech">The question asked</p>`;
+        //container.innerHTML+=`<p class="speech">${speech.text}</p>`;
+        // Code for speaking and introducing the user here.
+      });
+
+     
+    </script>
+  </body>
+</html>
