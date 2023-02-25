@@ -146,9 +146,15 @@ def speakQuestions():
     else:
         pass
     
+
+
+
+
+
+
 #speakQuestions()
 def introduction():
-  text = "Welcome to Relen, kindly listen to the audio lecture below, to start the assesement, type Start into the text box below, each question will take 20 seconds before the next, goodluck!."
+  text = "Welcome to Relen, kindly listen to the audio lecture below, to start the assesement, click on the Start Assesment button below, each question will take 20 seconds, goodluck!."
   gender = 'Male'
   #incert the inner html here.
   text_to_speech(text, gender)

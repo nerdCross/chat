@@ -4,7 +4,7 @@ from flask import Flask, redirect, render_template, request,url_for
 from main import text_to_speech
 #from   mic_source_speech_to_text import runnertime
 from speak_all_question_out import introduction, speakQuestions
-
+from realtime_assesment import start_assesement
 
 #app = Flask(__name__,template_folder ="template")
 app = Flask(__name__, template_folder='template', static_folder='static')
@@ -32,9 +32,26 @@ def display_score():
 def play_intro():
     # Code to be executed when the form is submitted
     # ...
-    #introduction()
+    introduction()
     
     return redirect(url_for('assesment'))
+
+
+
+@app.route('/start', methods=['GET', 'POST'])
+def start():
+    # Code to be executed when the form is submitted
+    # ...
+
+
+    #return start_assesement()
+
+    return speakQuestions()
+    
+
+
+
+
 
 
 @app.route('/assesment')

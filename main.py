@@ -25,6 +25,11 @@ def text_to_speech(text, gender):
 
     engine.say(text)
     engine.runAndWait()
+    engine.startLoop(False)
+    # engine.iterate() must be called inside externalLoop()
+    engine.endLoop()
+    # engine.endLoop()
+
 
 #text = 'Hello ! My name is processor.'
 #gender = 'Male'  # Voice assistant 

@@ -2,7 +2,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 
 # you can request the data from the api or use the data staticcally here for testing purposes.
-
+# since the aws server password is not going yet so i will use the existing data from the api
 data = [
   {
     "answer": "Doing Presentations Like A Pro ",
@@ -120,7 +120,7 @@ def convert_json_answers_to_list():
     else:
         pass
     
-convert_json_answers_to_list()
+# convert_json_answers_to_list()
 
 
 
