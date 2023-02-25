@@ -1,0 +1,86 @@
+/* Mic and button styles */
+.mic-container {
+    position: relative;
+    display: inline-block;
+    margin: 20px;
+  }
+  
+  .btn {
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: .5rem 1rem;
+    border-radius: .25rem;
+    cursor: pointer;
+  }
+  
+  .mic {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #007bff;
+    cursor: pointer;
+    animation: mic-pulse 1s infinite;
+  }
+  
+  .mic-top {
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #fff;
+  }
+  
+  .mic-bottom {
+    position: absolute;
+    bottom: -10px;
+    right: 20px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #fff;
+  }
+  
+  .mic-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #fff;
+  }
+  
+  @keyframes mic-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+    }
+  }
+  
+  /* Score styles */
+  .score-container {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  #score {
+    display: none;
+  }
+  
