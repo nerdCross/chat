@@ -27,7 +27,7 @@ def text_to_speech(text, gender):
     engine.runAndWait()
     engine.startLoop(False)
     # engine.iterate() must be called inside externalLoop()
-    engine.endLoop()
+    engine.endLoop(True)
     # engine.endLoop()
 
 

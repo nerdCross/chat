@@ -1,7 +1,6 @@
 # Python program to translate
 # speech to text and text to speech
-
-
+from speak_all_question_out import speakQuestions
 import speech_recognition as sr
 import pyttsx3
 
@@ -21,6 +20,7 @@ def SpeakText(command):
 # Loop infinitely for user to
 # speak
 def runnertime():
+	
 		
 	while(1):
 		
@@ -30,7 +30,9 @@ def runnertime():
 			
 			# use the microphone as source for input.
 			with sr.Microphone() as source2:
-				print("listening... ") 
+				listen = True
+				print("listening... ")
+ 
 
 				
 				# wait for a second to let the recognizer
@@ -44,10 +46,13 @@ def runnertime():
 				# Using google to recognize audio
 				MyText = r.recognize_google(audio2)
 				MyText = MyText.lower()
+				if MyText == "start assessment":
+					# SpeakText("Sure we can start now")
+					speakQuestions()
 
 				#print("Did you say ",MyText)
-				SpeakText(MyText)
-				print(MyText) 
+				# SpeakText(MyText)
+				print("Started the Assesment ...") 
 				
 		except sr.RequestError as e:
 			print("Could not request results; {0}".format(e))

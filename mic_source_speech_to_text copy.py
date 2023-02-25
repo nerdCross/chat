@@ -43,7 +43,7 @@ while(1):
 			MyText = MyText.lower()
 
 			print("Did you say ",MyText)
-			SpeakText(MyText)
+			SpeakText("you are welcome")
 			
 	except sr.RequestError as e:
 		print("Could not request results; {0}".format(e))

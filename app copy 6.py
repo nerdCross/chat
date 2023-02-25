@@ -1,8 +1,21 @@
-from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.feature_extraction.text import CountVectorizer
+# Importing the necessary Libraries
+# from flask_cors import cross_origin
+from flask import Flask,Response, render_template, redirect, render_template, request,url_for
+import speech_recognition as sr
+import pyttsx3
+import time
+from multiprocessing import Process, Queue
 
-# you can request the data from the api or use the data staticcally here for testing purposes.
-# since the aws server password is not going yet so i will use the existing data from the api
+#from   mic_source_speech_to_text import runnertime
+# from speak_all_question_out import introduction, speakQuestions
+# from realtime_assesment import start_assesement
+
+#app = Flask(__name__,template_folder ="template")
+app = Flask(__name__, template_folder='template', static_folder='static')
+
+
+
+
 data = [
   {
     "answer": "Doing Presentations Like A Pro ",
@@ -105,32 +118,13 @@ data = [
   }
 ]
 
-answers = []
+
+
+
+
 questions = []
-#reference_questions =  questions[1]
-def check_For():
-  # ?
-  #yeah it speaks after 20 seconds
-  for item in data:
-   for item in data:
-    if len(item['question']) > 0:
-      if '?' in item['question']:
-        print("The sentence contains a question mark.")
-      else:
-        print("The sentence does not contain a question mark.")
-    
 
-def convert_json_answers_to_list():
-  #yeah it speaks after 20 seconds
-  for item in data:
-   for item in data:
-    if len(item['answer']) > 0:
-        answers.append(item['answer'])
-        # print("answer: ", item['answer'])
-    else:
-        pass
 
-# convert_json_answers_to_list()
 
 
 def convert_json_Question_to_list():
@@ -140,42 +134,97 @@ def convert_json_Question_to_list():
       if '?' in item['question']:
         print("The question contains a question mark.")
         questions.append(item['question'])
-        # print("question: ", item['question'])
+        print("question: ", questions)
     else:
         pass
+    
+    
+
+
+#the chatbot runtime listening and responding to events acordingly.
+def listen(q):
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Say something!")
+        while True:
+            audio = r.listen(source)
+            try:
+                text = r.recognize_google(audio)
+                q.put(text)
+                print(f"Speech recognition results: {text}")
+            except:
+                print("Speech recognition failed")
+                
+
+
+@app.route('/',methods=['POST', 'GET'])
+def index():
+    return render_template('dashboard.html')
+
+@app.route('/interview',methods=['POST', 'GET'])
+def interview():
+    convert_json_Question_to_list()
+    
+    q = Queue()
+    listen_process = Process(target=listen, args=(q,))
+    speak_process = Process(target=speak, args=(q,))
+    listen_process.start()
+    speak_process.start()
+    listen_process.join()
+    speak_process.join()
+
+
+def listen(q):
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Say something!")
+        while True:
+            audio = r.listen(source)
+            try:
+                text = r.recognize_google(audio)
+                q.put(text)
+                print(f"Speech recognition results: {text}")
+            except:
+                print("Speech recognition failed")
+
+
+# def speak(q):
+#     engine = pyttsx3.init()
+#     engine.say("Welcome! I am an automated interviewer. Please answer the following questions to the best of your ability.")
+#     engine.runAndWait()
+#     while True:
+#         if not q.empty():
+#             response = q.get()
+#             while not response:
+#                 engine.say("I'm sorry, I didn't hear your response. Please try again.")
+#                 engine.runAndWait()
+#                 time.sleep(2)
+#                 if not q.empty():
+#                     response = q.get()
+#             print(f"User response: {response}")
+#             engine.say("Thank you for your response.")
+#             engine.runAndWait()
+#             # yield response
+def speak(q):
+    engine = pyttsx3.init()
+    engine.say("Welcome! I am an automated interviewer. Please answer the following questions to the best of your ability.")
+    engine.runAndWait()
+    while True:
+        for question in questions:
+            engine.say(question)
+            engine.runAndWait()
+            time.sleep(2)
+            if not q.empty():
+                response = q.get()
+                print(f"User response: {response}")
+                engine.say("Thank you for your response.")
+                engine.runAndWait()
 
 
 
 
+if __name__ == "__main__":
+    app.run(port=8000, debug=True)
+    
 
-# the follwing code uses the feature extracted to evaluate the user answer and return .
-def score_the_user():
-  # score = 0 
-  # reference_answers = "This is the first sentence."
-  reference_answer = answers[10]
-  # print()
-  
-  vectorizer = CountVectorizer().fit_transform(answers + [reference_answer])
-  cosine_similarities = cosine_similarity(vectorizer[-1], vectorizer[:-1]).flatten()
-  for i, similarity in enumerate(cosine_similarities):
-      if similarity > 0.5:
-        # score = score+1
-        # print(reference_answer)
-        # print("the score :",score)
-        # print(f"Sentence {i + 1} matches the reference sentence with a similarity of {similarity:.2f}.")
-        print("1")
-        return 1
-      else:
-        # print(f"Sentence {i + 1} does not match the reference sentence with a similarity of {similarity:.2f}.")
-         pass 
-
-# convert_json_answers_to_list()
-
-# thevalue = score_the_user()
-# print("value: ", thevalue)
-
-
-#In this example, the CountVectorizer class from the scikit-learn library is used to convert the answers into a numerical representation.
-#  The cosine_similarity function from the same library is used to calculate the cosine similarity between the reference sentence and each of the other answers. 
-# The cosine similarity ranges from 0, indicating no similarity, to 1, indicating a perfect match. In this example, a similarity threshold of 0.5 is used to determine
-#  whether a sentence matches the reference sentence with some degree of accuracy. You can adjust this threshold to suit your needs.
+# this code parse the json and extracts the questions then perform the interview

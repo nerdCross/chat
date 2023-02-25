@@ -1,2 +1,23 @@
  source voicechat/bin/activate
  sudo lsof -t -i tcp:8000 | xargs kill -9
+
+
+[Unit]
+Description=Uvicorn instance to serve QnA-RoBERTa-FastAPI
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/qna
+Environment="PATH=/home/ubuntu/qna/venv/bin"
+ExecStart=/home/ubuntu/qna/venv/bin/uvicorn main:app
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+sudo systemctl start nginx && cd /etc/systemd/system && sudo systemctl start qna.service
+

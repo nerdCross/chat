@@ -1,3 +1,8 @@
+import speech_recognition as sr
+import pyttsx3
+from multiprocessing import Process, Queue
+import time
+
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 
@@ -105,6 +110,9 @@ data = [
   }
 ]
 
+
+
+
 answers = []
 questions = []
 #reference_questions =  questions[1]
@@ -179,3 +187,56 @@ def score_the_user():
 #  The cosine_similarity function from the same library is used to calculate the cosine similarity between the reference sentence and each of the other answers. 
 # The cosine similarity ranges from 0, indicating no similarity, to 1, indicating a perfect match. In this example, a similarity threshold of 0.5 is used to determine
 #  whether a sentence matches the reference sentence with some degree of accuracy. You can adjust this threshold to suit your needs.
+
+
+def listen(q):
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Say something!")
+        while True:
+            audio = r.listen(source)
+            try:
+                text = r.recognize_google(audio)
+                q.put(text)
+                print(f"Speech recognition results: {text}")
+            except:
+                print("Speech recognition failed")
+                
+
+
+
+
+
+def calculate(q):
+    engine = pyttsx3.init()
+    while True:
+        if not q.empty():
+            text = q.get()
+            try:
+                # Attempt to parse a math expression from the recognized text
+                # result = eval(text)
+                result_from_mic = "result from the mic"
+                print(f"Calculated result: {result_from_mic}")
+                if "start assesment" in text and len(item['answer']) > 0:
+                    for item in data:
+                        for item in data:
+                            text = item['question']
+                        
+                            engine.say(text)
+                            time.sleep(20)
+
+                            engine.runAndWait()
+            except:
+                print("Calculation failed")
+                engine.say("Calculation failed")
+                engine.runAndWait()
+                
+if __name__ == '__main__':
+    q = Queue()
+    listen_process = Process(target=listen, args=(q,))
+    calculate_process = Process(target=calculate, args=(q,))
+    listen_process.start()
+    calculate_process.start()
+    listen_process.join()
+    calculate_process.join()
+# speak out the qustions during the
